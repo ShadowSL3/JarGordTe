@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EnviromentManager" load_steps=2 format=3 uid="uid://boy63lj3nvmto"]
+
+[ext_resource type="Script" path="res://scene/scripts/football/environment_manager.gd" id="1_ed3e2"]
+
+[resource]
+script = ExtResource("1_ed3e2")
+effect_shoot = 0.0
+atmosphere = null
+wind = 0.0

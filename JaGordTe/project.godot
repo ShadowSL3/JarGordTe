@@ -1,0 +1,37 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="JaGordTe"
+run/main_scene="res://scene/node_2d.tscn"
+config/features=PackedStringArray("4.1", "Forward Plus")
+config/icon="res://icon.svg"
+
+[input]
+
+enter={
+"deadzone": 0.5,
+"events": []
+}
+escape={
+"deadzone": 0.3,
+"events": []
+}
+PS5_Controller_LEFT_STICK={
+"deadzone": 0.4,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":0,"axis_value":-1.0,"script":null)
+]
+}
+PS5_Controller_RIGHT_STICK={
+"deadzone": 0.3,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":0,"axis_value":1.0,"script":null)
+]
+}

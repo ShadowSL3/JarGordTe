@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=2 format=3 uid="uid://b8inehtnhnvfn"]
+
+[ext_resource type="Script" path="res://scene/scripts/Weapons/weaopon.gd" id="1_llj6c"]
+
+[resource]
+script = ExtResource("1_llj6c")
+weapon_name = ""
+ammo = 12
+weapons_type = null
+weapons_effect = 10
