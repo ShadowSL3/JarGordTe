@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Storm" load_steps=2 format=3 uid="uid://c1jomm61hycdn"]
+
+[ext_resource type="Script" path="res://scene/Storm/Storm.gd" id="1_5nqhx"]
+
+[resource]
+script = ExtResource("1_5nqhx")
+lenght = 0
+width = 0.0
+height = 0.0
+position = Vector2(0, 0)
+storm_type = 0
+damage_storm = 0.0
+storm_function = null
+type_ambient_storm = null
