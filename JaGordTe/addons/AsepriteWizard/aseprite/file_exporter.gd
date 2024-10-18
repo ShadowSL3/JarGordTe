@@ -15,6 +15,7 @@ enum {
 ## Options:
 ##    output_folder (string)
 ##    output_filename (string, optional)
+##    export_mode (FILE_EXPORT_MODE, LAYERS_EXPORT_MODE) default: FILE_EXPORT_MODE
 ##    exception_pattern (string, optional)
 ##    only_visible_layers (boolean, optional)
 ##
