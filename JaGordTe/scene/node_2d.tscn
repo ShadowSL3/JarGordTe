@@ -5,21 +5,6 @@
 [ext_resource type="Script" path="res://scene/Time_stamina.gd" id="3_jxrva"]
 [ext_resource type="Script" path="res://scene/scripts/window_sizer/window_sizer.gd" id="4_ix1jf"]
 
-[sub_resource type="Animation" id="Animation_5nu0t"]
-resource_name = "godot_logo_anim_1"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(60, 65), Vector2(400, 65)]
-}
-
 [sub_resource type="Animation" id="Animation_g35w8"]
 length = 0.001
 tracks/0/type = "value"
@@ -33,6 +18,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(120, 65)]
+}
+
+[sub_resource type="Animation" id="Animation_5nu0t"]
+resource_name = "godot_logo_anim_1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(60, 65), Vector2(400, 65)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0u55v"]
@@ -147,3 +147,9 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("4_ix1jf")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(193, 78)
+zoom = Vector2(2.5, 2.5)
+
+[node name="Timer" type="Timer" parent="."]
