@@ -1,155 +1,32 @@
-[gd_scene load_steps=12 format=3 uid="uid://ofdsusbmqinc"]
+[gd_scene load_steps=2 format=3 uid="uid://ofdsusbmqinc"]
 
-[ext_resource type="Texture2D" uid="uid://ci0ecer77xg85" path="res://icon.svg" id="1_agrv0"]
-[ext_resource type="Script" path="res://scene/node_2d.gd" id="1_tuvur"]
-[ext_resource type="Script" path="res://scene/Time_stamina.gd" id="3_jxrva"]
-[ext_resource type="Script" path="res://scene/scripts/window_sizer/window_sizer.gd" id="4_ix1jf"]
+[sub_resource type="GDScript" id="GDScript_3bqhh"]
+script/source = "extends Node2D
 
-[sub_resource type="Animation" id="Animation_g35w8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(120, 65)]
-}
+@onready var UI = $UI
+@onready var label = $UI/Label
+@onready var stamina = $UI/Label/Stamina
+@onready var effect_damage = $UI/Label/Stamina/Effect_Damage
+@onready var color_rect = $UI/Label/Stamina/Effect_Damage/ColorRect
+@onready var animation_player = $UI/Label/Stamina/Effect_Damage/ColorRect/AnimationPlayer
+@onready var timer_reload_health = $Timer
+func _ready():
+	color_rect.visible = false
 
-[sub_resource type="Animation" id="Animation_5nu0t"]
-resource_name = "godot_logo_anim_1"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(60, 65), Vector2(400, 65)]
-}
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0u55v"]
-_data = {
-"RESET": SubResource("Animation_g35w8"),
-"godot_logo_anim_1": SubResource("Animation_5nu0t")
-}
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8qdop"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fvtua"]
-bg_color = Color(0, 0.682353, 0.713726, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
-
-[sub_resource type="Animation" id="Animation_48mu0"]
-resource_name = "stamina_low_anim_1"
-length = 3.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.7, 1, 1.4, 1.7, 2, 2.3, 2.7, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.0313726), Color(1, 1, 1, 0.235294), Color(1, 1, 1, 0.0156863), Color(1, 1, 1, 0.172549), Color(1, 1, 1, 0.0156863), Color(1, 1, 1, 0.219608), Color(1, 1, 1, 0.0156863), Color(1, 1, 1, 0.172549), Color(1, 1, 1, 0.0156863), Color(1, 1, 1, 0.219608)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dowrf"]
-_data = {
-"stamina_low_anim_1": SubResource("Animation_48mu0")
-}
+func _input(event):
+	if event is InputEvent:
+		if event.is_action(\"W\"):
+			stamina.value -= 0.77
+			if stamina.value <= 8 or 5:
+				animation_player.play(\"stamina_low_anim_1\")
+			if stamina.value == 0:
+				_die()
+func _die():
+	queue_free()
+	await(get_tree().create_timer(0.2)).timeout
+	get_tree().reload_current_scene()
+"
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_tuvur")
-
-[node name="Button" type="Button" parent="."]
-visible = false
-offset_right = 79.0
-offset_bottom = 42.0
-text = "="
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_0u55v")
-}
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(120, 65)
-texture = ExtResource("1_agrv0")
-
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="UI"]
-offset_right = 74.0
-offset_bottom = 26.0
-text = "Stamina:"
-
-[node name="Stamina" type="ProgressBar" parent="UI/Label"]
-z_index = 1
-custom_minimum_size = Vector2(240, 0)
-layout_mode = 0
-offset_left = 71.0
-offset_top = 7.0
-offset_right = 311.0
-offset_bottom = 34.0
-scale = Vector2(0.5, 0.5)
-theme_override_styles/background = SubResource("StyleBoxEmpty_8qdop")
-theme_override_styles/fill = SubResource("StyleBoxFlat_fvtua")
-value = 80.0
-show_percentage = false
-
-[node name="Effect_Damage" type="CanvasLayer" parent="UI/Label/Stamina"]
-layer = 2
-
-[node name="ColorRect" type="ColorRect" parent="UI/Label/Stamina/Effect_Damage"]
-modulate = Color(1, 1, 1, 0.219608)
-offset_right = 1153.0
-offset_bottom = 639.0
-color = Color(0.815686, 0.152941, 0.133333, 1)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/Label/Stamina/Effect_Damage/ColorRect"]
-autoplay = "stamina_low_anim_1"
-speed_scale = 0.99
-libraries = {
-"": SubResource("AnimationLibrary_dowrf")
-}
-
-[node name="Time_stamina" type="Timer" parent="UI/Label/Stamina/Effect_Damage"]
-script = ExtResource("3_jxrva")
-
-[node name="Timer_left" type="Label" parent="UI"]
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("4_ix1jf")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(193, 78)
-zoom = Vector2(2.5, 2.5)
-
-[node name="Timer" type="Timer" parent="."]
+script = SubResource("GDScript_3bqhh")
